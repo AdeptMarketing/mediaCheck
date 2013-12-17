@@ -1,1 +1,13 @@
-var mediaCheck=function(a){var b,c,d,e,f,g=void 0!==window.matchMedia;if(g)c=function(a,b){a.matches?"function"==typeof b.entry&&b.entry():"function"==typeof b.exit&&b.exit(),"function"==typeof b.both&&b.both()},d=function(){b=window.matchMedia(a.media),b.addListener(function(){c(b,a)}),window.addEventListener("orientationchange",function(){b=window.matchMedia(a.media),c(b,a)},!1),c(b,a)},d();else{var h,j={};c=function(a,b){a.matches?"function"!=typeof b.entry||j[b.media]!==!1&&null!=j[b.media]||b.entry():"function"!=typeof b.exit||j[b.media]!==!0&&null!=j[b.media]||b.exit(),"function"==typeof b.both&&b.both(),j[b.media]=a.matches},e=function(a){var b;return b=document.createElement("div"),b.style.width="1em",document.body.appendChild(b),a*b.offsetWidth},f=function(a,b){var c;switch(b){case"em":c=e(a);break;default:c=a}return c};for(i in a)j[a.media]=null;var k=function(){var b=a.media.match(/\((.*)-.*:\s*([\d\.]*)(.*)\)/),d=b[1],e=f(parseInt(b[2],10),b[3]),g={},i=document.documentElement.clientWidth;h!=i&&(g.matches="max"===d&&e>i||"min"===d&&i>e,c(g,a),h=i)};window.addEventListener?window.addEventListener("resize",k):window.attachEvent&&window.attachEvent("onresize",k),k()}};
+/**
+  mediacheck will take a hash and execute the specified methods based on the current mediaquery status.
+
+  ex.
+
+  mediaCheck({
+    media: '(min-width: 500px)',
+    entry: function() { ... },
+    exit: function() { ... }
+  });
+
+  @param Object - options
+*/var mediaCheck=function(e){"use strict";var t,n,r,i,s,o;n=window.matchMedia!==undefined&&window.matchMedia("only screen").addListener!==undefined;r=function(e,t){e.matches?typeof t.entry=="function"&&t.entry():typeof t.exit=="function"&&t.exit()};if(n){i=function(){t=window.matchMedia(e.media);t.addListener(function(){r(t,e)});r(t,e)};i()}else{o=window.outerWidth;s=function(){var t,n,i,s;t=e.media.match(/\(([\w\W]*)-[\w\W]*:\s*([\w\W]*)\)/);n=t[1];i=parseInt(t[2],10);s={};if(o!==window.outerWidth){s.matches=n==="max"&&i>window.outerWidth||n==="min"&&i<window.outerWidth;r(s,e);o=window.outerWidth}};window.addEventListener?window.addEventListener("resize",s):window.attachEvent&&window.attachEvent("resize",s);s()}};
